@@ -1,30 +1,14 @@
 pipeline {
   agent {
     kubernetes {
-      yaml '''
-        apiVersion: v1
-        kind: Pod
-        spec:
-          containers:
-          - name: ruby
-            image: ruby:2.6.6
-            command:
-            - cat
-            tty: true        
-        '''
+      yamlFile 'KubernetesPod.yaml'
     }
   }
   stages {
-    stage('Run ruby') {
+    stage('Run build') {
       steps {
-        container('ruby') {
-          sh '''
-          echo Testing
-          id
-          cat /etc/os-release
-          cat /etc/passwd
-	  ruby -v
-          '''
+        container('build') {
+          sh './gcloud-builds-submit.sh'
         }
       }
     }

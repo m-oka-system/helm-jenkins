@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: build
+    image: cloud-sdk
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - name: google-cloud-key
+      mountPath: /var/secrets/google
+    env:
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /var/secrets/google/key.json
+  volumes:
+  - name: google-cloud-key
+    secret:
+      secretName: gcb-key
