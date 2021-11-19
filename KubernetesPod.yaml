@@ -3,7 +3,7 @@ kind: Pod
 spec:
   containers:
   - name: build
-    image: cloud-sdk
+    image: google/cloud-sdk
     command:
     - cat
     tty: true
